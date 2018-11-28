@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="./img/flag.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="./img/flag.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-2"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Jeesan Backend</span>
     </a>
@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="./img/man.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Side effect Rezwn</a>
+          <a href="#" class="d-block">Side effect Rezwan</a>
         </div>
       </div>
 
@@ -77,27 +77,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a class="nav-link ">
-              <i class="nav-icon fas fa-anchor"></i>
-              <p>
+              <i class="nav-icon fas fa-anchor green"></i>
+              <p style="color: white;">
                   Admin Panel
-                <i class="right fa fa-angle-left"></i>
+                <i class="right fa fa-angle-left "></i>
               </p>
             </a >
             <ul class="nav nav-treeview">
               <li class="nav-item">
+
                 <router-link to="/dashboard" class="nav-link ">
-                 <i class="fas fa-tachometer-alt nav-icon"></i>
+
+                 <i class="fas fa-tachometer-alt nav-icon yellow"></i>
                   <p>Dashboard</p>
                 </router-link>
               </li>
               <li class="nav-item">
+
                 <router-link to="/profile" class="nav-link">
-                  <i class="fas fa-user-circle nav-icon"></i>
-                  <p>Profile </p>
+
+                  <i class="fas fa-user-circle nav-icon yellow"></i>
+                  <p>Profile</p>
                 </router-link>
               </li>
+              <li class="nav-item">
+
+                <router-link to="/Users" class="nav-link ">
+
+                <i class="fas fa-users yellow"></i>
+
+                  <p>Users</p>
+                </router-link>
+              </li>              
             </ul>
           </li>
+
+          <div class="nav-item" >
+              <a class="nav-link" href="{{ route('logout') }}"
+                  
+            
+                  
+                 onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+              
+
+                <i class="fas fa-sign-out-alt red"></i>
+
+
+                     <p>{{ __('Logout') }}</p>
+              </a>
+
+
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+          </div>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
@@ -123,12 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">Starter Page</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
-            </ol>
-          </div><!-- /.col -->
+   
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -140,10 +171,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content" >
         <div class="container-fluid">
+
               <router-view></router-view>
+               <vue-progress-bar></vue-progress-bar>
+
         </div>
     <!-- /.content -->
-  </div>
+    </div>
   <!-- /.content-wrapper -->
 
 
