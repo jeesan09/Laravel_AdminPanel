@@ -70356,11 +70356,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+  data: function data() {
+    return {
+      // Create a new form instance
+      avater: null,
+      images: '1543825601.png',
+      imgUrl: '',
+      imgname: '',
+      name: ''
+
+    };
+  },
+
+
+  methods: {
+    getImage: function getImage(e) {
+      var _this = this;
+
+      //`http://localhost:8000/img/profile/${images}`
+      //  console.log(e.target.files);
+      var image = e.target.files[0];
+      //  console.log(image);
+      var reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = function (e) {
+
+        //   console.log(e);
+        _this.avater = e.target.result;
+      };
+
+      /*   let image = e.target.files[0];
+         this.avater=image;
+         console.log(this.avater);
+          */
+      //  this.showImage();
+      //  console.log(image.name);
+      this.imgname = image.name;
+      //  console.log(this.imgname);
+    },
+    uploadImage: function uploadImage() {
+      var _this2 = this;
+
+      axios.put(' api/picUpload ', { 'imag': this.avater }).then(function (response) {
+
+        _this2.name = response.data.image;
+        //console.log("parse ", JSON.parse(response) )
+        _this2.imgUrl = "http://localhost:8000/img/profile/" + _this2.name;
+        console.log(_this2.imgUrl);
+      }).catch(function () {});
+      //console.log("Funtion Called Image Uplad");  , {'imag':this.avater}
     }
+  },
+
+  mounted: function mounted() {
+    console.log('Component mounted.');
+    // this.imgUrl="http://localhost:8000/img/profile/"+this.name 
+    //    console.log(this.imgUrl);
+
+  }
 });
 
 /***/ }),
@@ -70371,32 +70428,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("DashBoard Component")
-            ]),
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("DashBoard Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("input", {
+              staticClass: "form-control-file border",
+              attrs: { type: "file" },
+              on: { change: _vm.getImage }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an DashBoard component.\n                "
-              )
-            ])
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success mt-4",
+                attrs: { type: "button" },
+                on: { click: _vm.uploadImage }
+              },
+              [_vm._v(" Uplad Image ")]
+            ),
+            _vm._v(" "),
+            _c("img", { attrs: { src: _vm.imgUrl, height: "150px" } })
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -70848,7 +70912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.$Progress.finish();
       }).catch(function () {});
     },
-    editUser: function editUser(id) {
+    editUser: function editUser() {
       var _this4 = this;
 
       console.log("edditing Data");

@@ -297,7 +297,7 @@
                   
                 },
 
-               editUser(id){
+               editUser(){
                console.log("edditing Data");
 
                this.$Progress.start()

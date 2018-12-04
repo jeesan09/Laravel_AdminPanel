@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 
+//file Upload
+use App\Lib\FileUpload;
+
+
  
 class UserController extends Controller
 {
@@ -31,9 +35,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
         //return ['massage'=>'all is good'];
-
         $this->validate($request,[
 
             'name'=>'required|string|max:191',
@@ -71,7 +74,50 @@ class UserController extends Controller
     {
         //
     }
+    public function picUpold(Request $request)
+    {
+        //
 
+
+
+            $name = time().'.' . explode('/', explode(':', substr($request->imag, 0, strpos($request->imag, ';')))[1])[1];
+            
+           \Image::make($request->imag)->save(public_path('img/profile/').$name);
+
+      //      $name='$request->imag';
+     //      \Image::make($request->imag)->save(public_path('img/profile/').$name);
+
+  
+
+               echo json_encode( array('image'=>$name, 'ami'=>'Jesan') );
+
+
+           //return ['massage'=>'Pic Controller Called'];
+       //   return[$request->imag];
+       /* $request->User()->update(['photo'=>$request->imag]);
+       $request->User()->photo = $request->imag;
+      $request->User()->save();
+ 
+        
+         if ($request->hasFile('imag'))
+            {
+                $file = $request->file('imag');
+                $prefix = 'image';
+                $path = 'public/img';
+
+                $file_upload = new FileUpload();
+                return $upload = $file_upload->upload($file, $prefix, $path);
+
+                if ($upload['status'] == true)
+                {
+                    $file_name = $upload['file_name'];
+                }
+
+            } 
+  */
+        //return ['massage'=>'Pic Controller Called'];
+      // return[$request->imag];
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -98,7 +144,7 @@ class UserController extends Controller
         $user->update($request->all());
 
 
-        return ['massage'=>'all is good update'];
+       // return ['massage'=>'all is good update'];
     }
 
     /**
