@@ -7,8 +7,9 @@
 
                     <div class="card-body">
                         <input type="file" class="form-control-file border" @change="getImage">
-                        <button  type="button" class="btn btn-success mt-4" @click="uploadImage" > Uplad Image </button>
-                        <img :src="imgUrl" height="150px">
+                    
+                        <img :src="imgUrl" height="150px"><br>
+                            <button  type="button" class="btn btn-success mt-4" @click="uploadImage" > Uplad Image </button>
                     </div>
                 </div>
             </div>
@@ -80,14 +81,37 @@
 
                              })
                   //console.log("Funtion Called Image Uplad");  , {'imag':this.avater}
-                }
-       
+                },
+
+                beforeRouteEnter(to,form,next){
+
+                
+
+                       next(false);
+                       console.log("before Route Called");
+                       
+                  }
+                  
                 },
        
                 mounted() {
                     console.log('Component mounted.')
                    // this.imgUrl="http://localhost:8000/img/profile/"+this.name 
                   //    console.log(this.imgUrl);
+
+                     axios.get("api/picshow").then((response) => {
+                               
+                            this.name = response.data.image_name
+                           // console.log("parse ", JSON.parse(response) )
+                            this.imgUrl="http://localhost:8000/img/profile/"+this.name 
+                            console.log(this.imgUrl);
+
+
+                             }).catch(()=>{
+
+
+                             })
+                             
 
 
                 }

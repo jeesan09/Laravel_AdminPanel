@@ -70358,6 +70358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -70409,14 +70410,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(_this2.imgUrl);
       }).catch(function () {});
       //console.log("Funtion Called Image Uplad");  , {'imag':this.avater}
+    },
+    beforeRouteEnter: function beforeRouteEnter(to, form, next) {
+
+      next(false);
+      console.log("before Route Called");
     }
   },
 
   mounted: function mounted() {
+    var _this3 = this;
+
     console.log('Component mounted.');
     // this.imgUrl="http://localhost:8000/img/profile/"+this.name 
     //    console.log(this.imgUrl);
 
+    axios.get("api/picshow").then(function (response) {
+
+      _this3.name = response.data.image_name;
+      // console.log("parse ", JSON.parse(response) )
+      _this3.imgUrl = "http://localhost:8000/img/profile/" + _this3.name;
+      console.log(_this3.imgUrl);
+    }).catch(function () {});
   }
 });
 
@@ -70443,6 +70458,9 @@ var render = function() {
               on: { change: _vm.getImage }
             }),
             _vm._v(" "),
+            _c("img", { attrs: { src: _vm.imgUrl, height: "150px" } }),
+            _c("br"),
+            _vm._v(" "),
             _c(
               "button",
               {
@@ -70451,9 +70469,7 @@ var render = function() {
                 on: { click: _vm.uploadImage }
               },
               [_vm._v(" Uplad Image ")]
-            ),
-            _vm._v(" "),
-            _c("img", { attrs: { src: _vm.imgUrl, height: "150px" } })
+            )
           ])
         ])
       ])

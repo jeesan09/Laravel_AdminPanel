@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//middleware('auth:api')->
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources(['user'=>'API\UserController']);
 
 //Route::apiResources(['/picUpload'=>'UserController@picUpold']);
- Route::put('picUpload', 'API\UserController@picUpold');
+  Route::put('picUpload', 'API\UserController@picUpold');
+  Route::get('picshow', 'API\UserController@showpic');

@@ -4,13 +4,12 @@ namespace App\Http\Controllers\API;
 
 
 use App\Http\Controllers\Controller;
+use App\Lib\FileUpload;
+use App\Photo;
 use App\User;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Hash;
-
-
-//file Upload
-use App\Lib\FileUpload;
 
 
  
@@ -21,9 +20,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+/*    public function __construct()
+    {
+        $this->middleware('auth');
+    }*/
+
     public function index()
     {
         //
+       
         return User::latest()->paginate(5);
     }
 
@@ -84,40 +89,31 @@ class UserController extends Controller
             
            \Image::make($request->imag)->save(public_path('img/profile/').$name);
 
-      //      $name='$request->imag';
-     //      \Image::make($request->imag)->save(public_path('img/profile/').$name);
+             $Photo= new Photo();
+             $Photo->photo_name = $name;
+             $Photo->save();
+
+
 
   
 
                echo json_encode( array('image'=>$name, 'ami'=>'Jesan') );
 
 
-           //return ['massage'=>'Pic Controller Called'];
-       //   return[$request->imag];
-       /* $request->User()->update(['photo'=>$request->imag]);
-       $request->User()->photo = $request->imag;
-      $request->User()->save();
- 
-        
-         if ($request->hasFile('imag'))
-            {
-                $file = $request->file('imag');
-                $prefix = 'image';
-                $path = 'public/img';
 
-                $file_upload = new FileUpload();
-                return $upload = $file_upload->upload($file, $prefix, $path);
-
-                if ($upload['status'] == true)
-                {
-                    $file_name = $upload['file_name'];
-                }
-
-            } 
-  */
-        //return ['massage'=>'Pic Controller Called'];
-      // return[$request->imag];
     }
+
+
+    public function showpic(){
+
+        $picName=Photo::all()->pluck('photo_name')->last();
+
+      // $picName= Photo::orderBy('created_at', 'desc')->get()->last();
+         echo json_encode( array('image_name'=> $picName) );
+      //  return $picName;
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
